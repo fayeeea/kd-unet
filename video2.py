@@ -1,28 +1,41 @@
+#!/usr/bin/env python3
+
 import cv2
 import torch
-import torchvision
-from torchvision import transforms
+import torchvision.transforms as transforms
 import numpy as np
 from PIL import Image
 import time
 from collections import deque
 
+# model 폴더에서 import
+from model import HumanSegmentation  # 클래스 이름 그대로
+
 # GPU 설정
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# MobileNetV3 기반 DeepLabV3 모델 로드
-model = torchvision.models.segmentation.deeplabv3_mobilenet_v3_large(pretrained=True)
-model.to(device).eval().half()  # FP16
+w = 960
+h = 540
 
+
+# --------------------------
+# 모델 초기화
+# --------------------------
+model = HumanSegmentation('light').to(device).eval()
+resize_size = 224
+# --------------------------
 # 전처리
+# --------------------------
 preprocess = transforms.Compose([
-    transforms.Resize((224, 224)),
-    transforms.ToTensor(),
-    transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                         std=[0.229, 0.224, 0.225])
-])
+            transforms.Resize((resize_size,resize_size)),
+            transforms.ToTensor(),  # [0,255] -> [0,1]
+            transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                 std=[0.229, 0.224, 0.225])
+        ])
 
+# --------------------------
 # 카메라
+# --------------------------
 gst_pipeline = (
     "nvarguscamerasrc ! "
     "video/x-raw(memory:NVMM), width=1280, height=720, format=NV12, framerate=30/1 ! "
@@ -35,7 +48,7 @@ if not cap.isOpened():
     exit()
 
 # FPS 계산용 deque (최근 N 프레임)
-frame_times = deque(maxlen=30)  # 최근 30프레임 평균 FPS
+frame_times = deque(maxlen=30)
 
 while True:
     # 최신 frame만 가져오기
@@ -46,17 +59,15 @@ while True:
 
     start_time = time.time()
 
-    frame_resized = cv2.resize(frame, (224, 224))
+    frame_resized = cv2.resize(frame, (resize_size, resize_size))
     img = Image.fromarray(cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB))
-    input_tensor = preprocess(img).unsqueeze(0).to(device).half()  # FP16
+    input_tensor = preprocess(img).unsqueeze(0).to(device)
 
     # GPU inference
     with torch.no_grad():
-        output = model(input_tensor)['out'][0]
+        human_mask = model(input_tensor)[0].cpu().numpy()  # [H,W], 0/1
 
-    pred = output.argmax(0).byte().cpu().numpy()
-    human_mask = (pred == 15).astype(np.uint8)
-    result = frame_resized * human_mask[:, :, np.newaxis]
+    result = (frame_resized * human_mask[:, :, np.newaxis]).astype(np.uint8)
 
     # FPS 계산
     end_time = time.time()
