@@ -1,0 +1,106 @@
+jetson@yahboom:~$ cd bbi
+jetson@yahboom:~/bbi$ trtexec --onnx=model_abc.onnx --saveEngine=output.trt --int8
+&&&& RUNNING TensorRT.trtexec [TensorRT v8201] # trtexec --onnx=model_abc.onnx --saveEngine=output.trt --int8
+[11/26/2025-13:48:24] [I] === Model Options ===
+[11/26/2025-13:48:24] [I] Format: ONNX
+[11/26/2025-13:48:24] [I] Model: model_abc.onnx
+[11/26/2025-13:48:24] [I] Output:
+[11/26/2025-13:48:24] [I] === Build Options ===
+[11/26/2025-13:48:24] [I] Max batch: explicit batch
+[11/26/2025-13:48:24] [I] Workspace: 16 MiB
+[11/26/2025-13:48:24] [I] minTiming: 1
+[11/26/2025-13:48:24] [I] avgTiming: 8
+[11/26/2025-13:48:24] [I] Precision: FP32+INT8
+[11/26/2025-13:48:24] [I] Calibration: Dynamic
+[11/26/2025-13:48:24] [I] Refit: Disabled
+[11/26/2025-13:48:24] [I] Sparsity: Disabled
+[11/26/2025-13:48:24] [I] Safe mode: Disabled
+[11/26/2025-13:48:24] [I] DirectIO mode: Disabled
+[11/26/2025-13:48:24] [I] Restricted mode: Disabled
+[11/26/2025-13:48:24] [I] Save engine: output.trt
+[11/26/2025-13:48:24] [I] Load engine: 
+[11/26/2025-13:48:24] [I] Profiling verbosity: 0
+[11/26/2025-13:48:24] [I] Tactic sources: Using default tactic sources
+[11/26/2025-13:48:24] [I] timingCacheMode: local
+[11/26/2025-13:48:24] [I] timingCacheFile: 
+[11/26/2025-13:48:24] [I] Input(s)s format: fp32:CHW
+[11/26/2025-13:48:24] [I] Output(s)s format: fp32:CHW
+[11/26/2025-13:48:24] [I] Input build shapes: model
+[11/26/2025-13:48:24] [I] Input calibration shapes: model
+[11/26/2025-13:48:24] [I] === System Options ===
+[11/26/2025-13:48:24] [I] Device: 0
+[11/26/2025-13:48:24] [I] DLACore: 
+[11/26/2025-13:48:24] [I] Plugins:
+[11/26/2025-13:48:24] [I] === Inference Options ===
+[11/26/2025-13:48:24] [I] Batch: Explicit
+[11/26/2025-13:48:24] [I] Input inference shapes: model
+[11/26/2025-13:48:24] [I] Iterations: 10
+[11/26/2025-13:48:24] [I] Duration: 3s (+ 200ms warm up)
+[11/26/2025-13:48:24] [I] Sleep time: 0ms
+[11/26/2025-13:48:24] [I] Idle time: 0ms
+[11/26/2025-13:48:24] [I] Streams: 1
+[11/26/2025-13:48:24] [I] ExposeDMA: Disabled
+[11/26/2025-13:48:24] [I] Data transfers: Enabled
+[11/26/2025-13:48:24] [I] Spin-wait: Disabled
+[11/26/2025-13:48:24] [I] Multithreading: Disabled
+[11/26/2025-13:48:24] [I] CUDA Graph: Disabled
+[11/26/2025-13:48:24] [I] Separate profiling: Disabled
+[11/26/2025-13:48:24] [I] Time Deserialize: Disabled
+[11/26/2025-13:48:24] [I] Time Refit: Disabled
+[11/26/2025-13:48:24] [I] Skip inference: Disabled
+[11/26/2025-13:48:24] [I] Inputs:
+[11/26/2025-13:48:24] [I] === Reporting Options ===
+[11/26/2025-13:48:24] [I] Verbose: Disabled
+[11/26/2025-13:48:24] [I] Averages: 10 inferences
+[11/26/2025-13:48:24] [I] Percentile: 99
+[11/26/2025-13:48:24] [I] Dump refittable layers:Disabled
+[11/26/2025-13:48:24] [I] Dump output: Disabled
+[11/26/2025-13:48:24] [I] Profile: Disabled
+[11/26/2025-13:48:24] [I] Export timing to JSON file: 
+[11/26/2025-13:48:24] [I] Export output to JSON file: 
+[11/26/2025-13:48:24] [I] Export profile to JSON file: 
+[11/26/2025-13:48:24] [I] 
+[11/26/2025-13:48:24] [I] === Device Information ===
+[11/26/2025-13:48:24] [I] Selected Device: NVIDIA Tegra X1
+[11/26/2025-13:48:24] [I] Compute Capability: 5.3
+[11/26/2025-13:48:24] [I] SMs: 1
+[11/26/2025-13:48:24] [I] Compute Clock Rate: 0.9216 GHz
+[11/26/2025-13:48:24] [I] Device Global Memory: 3955 MiB
+[11/26/2025-13:48:24] [I] Shared Memory per SM: 64 KiB
+[11/26/2025-13:48:24] [I] Memory Bus Width: 64 bits (ECC disabled)
+[11/26/2025-13:48:24] [I] Memory Clock Rate: 0.01275 GHz
+[11/26/2025-13:48:24] [I] 
+[11/26/2025-13:48:24] [I] TensorRT version: 8.2.1
+[11/26/2025-13:48:28] [I] [TRT] [MemUsageChange] Init CUDA: CPU +229, GPU +0, now: CPU 248, GPU 3484 (MiB)
+[11/26/2025-13:48:29] [I] [TRT] [MemUsageSnapshot] Begin constructing builder kernel library: CPU 248 MiB, GPU 3513 MiB
+[11/26/2025-13:48:29] [I] [TRT] [MemUsageSnapshot] End constructing builder kernel library: CPU 278 MiB, GPU 3543 MiB
+[11/26/2025-13:48:29] [I] Start parsing network model
+[11/26/2025-13:48:29] [I] [TRT] ----------------------------------------------------------------
+[11/26/2025-13:48:29] [I] [TRT] Input filename:   model_abc.onnx
+[11/26/2025-13:48:29] [I] [TRT] ONNX IR version:  0.0.7
+[11/26/2025-13:48:29] [I] [TRT] Opset version:    13
+[11/26/2025-13:48:29] [I] [TRT] Producer name:    onnx.quantize
+[11/26/2025-13:48:29] [I] [TRT] Producer version: 0.1.0
+[11/26/2025-13:48:29] [I] [TRT] Domain:           
+[11/26/2025-13:48:29] [I] [TRT] Model version:    0
+[11/26/2025-13:48:29] [I] [TRT] Doc string:       
+[11/26/2025-13:48:29] [I] [TRT] ----------------------------------------------------------------
+[11/26/2025-13:48:29] [W] [TRT] onnx2trt_utils.cpp:366: Your ONNX model has been generated with INT64 weights, while TensorRT does not natively support INT64. Attempting to cast down to INT32.
+[11/26/2025-13:48:29] [E] [TRT] ModelImporter.cpp:773: While parsing node number 15 [QuantizeLinear -> "input_QuantizeLinear_Output"]:
+[11/26/2025-13:48:29] [E] [TRT] ModelImporter.cpp:774: --- Begin node ---
+[11/26/2025-13:48:29] [E] [TRT] ModelImporter.cpp:775: input: "input"
+input: "input_scale"
+input: "input_zero_point"
+output: "input_QuantizeLinear_Output"
+name: "input_QuantizeLinear"
+op_type: "QuantizeLinear"
+
+[11/26/2025-13:48:29] [E] [TRT] ModelImporter.cpp:776: --- End node ---
+[11/26/2025-13:48:29] [E] [TRT] ModelImporter.cpp:779: ERROR: builtin_op_importers.cpp:1170 In function QuantDequantLinearHelper:
+[6] Assertion failed: shiftIsAllZeros(zeroPoint) && "TRT only supports symmetric quantization - zeroPt must be all zeros"
+[11/26/2025-13:48:29] [E] Failed to parse onnx file
+[11/26/2025-13:48:29] [I] Finish parsing network model
+[11/26/2025-13:48:29] [E] Parsing model failed
+[11/26/2025-13:48:29] [E] Failed to create engine from model.
+[11/26/2025-13:48:29] [E] Engine set up failed
+&&&& FAILED TensorRT.trtexec [TensorRT v8201] # trtexec --onnx=model_abc.onnx --saveEngine=output.trt --int8
