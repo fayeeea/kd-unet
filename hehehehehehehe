@@ -1,3 +1,14 @@
 sudo apt-get update
 sudo apt-get install libgstreamer1.0-0 gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools
 gst-launch-1.0 ximagesrc ! video/x-raw, framerate=30/1 ! videoconvert ! omxh264enc ! qtmux ! filesink location=screen_record.mp4 -e
+jetson@yahboom:~$ gst-launch-1.0 ximagesrc ! video/x-raw, framerate=30/1 ! videoconvert ! omxh264enc ! qtmux ! filesink location=screen_record.mp4 -e
+Setting pipeline to PAUSED ...
+Pipeline is live and does not need PREROLL ...
+Setting pipeline to PLAYING ...
+New clock: GstSystemClock
+Framerate set to : 30 at NvxVideoEncoderSetParameterNvMMLiteOpen : Block : BlockType = 4 
+===== NVMEDIA: NVENC =====
+NvMMLiteBlockCreate : Block : BlockType = 4 
+H264: Profile = 66, Level = 40 
+NVMEDIA_ENC: bBlitMode is set to TRUE 
+
