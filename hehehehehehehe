@@ -1,2 +1,3 @@
 sudo apt-get update
 sudo apt-get install libgstreamer1.0-0 gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools
+gst-launch-1.0 ximagesrc ! video/x-raw, framerate=30/1 ! videoconvert ! omxh264enc ! qtmux ! filesink location=screen_record.mp4 -e
