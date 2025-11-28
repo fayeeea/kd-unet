@@ -5,3 +5,97 @@ gst-launch-1.0 ximagesrc ! video/x-raw, framerate=30/1 ! videoconvert ! omxh264e
 
 # 스크린샷 코드
 gnome-screenshot -f my_screenshot.png
+-------------------------------------------------------
+
+---------------------------------------------------------------------------
+MissingSchema                             Traceback (most recent call last)
+~/.local/lib/python3.6/site-packages/transformers/configuration_utils.py in _get_config_dict(cls, pretrained_model_name_or_path, **kwargs)
+    603                 use_auth_token=use_auth_token,
+--> 604                 user_agent=user_agent,
+    605             )
+
+~/.local/lib/python3.6/site-packages/transformers/utils/hub.py in cached_path(url_or_filename, cache_dir, force_download, proxies, resume_download, user_agent, extract_compressed_file, force_extract, use_auth_token, local_files_only)
+    289             use_auth_token=use_auth_token,
+--> 290             local_files_only=local_files_only,
+    291         )
+
+~/.local/lib/python3.6/site-packages/transformers/utils/hub.py in get_from_cache(url, cache_dir, force_download, proxies, etag_timeout, resume_download, user_agent, use_auth_token, local_files_only)
+    584 
+--> 585             http_get(url_to_download, temp_file, proxies=proxies, resume_size=resume_size, headers=headers)
+    586 
+
+~/.local/lib/python3.6/site-packages/transformers/utils/hub.py in http_get(url, temp_file, proxies, resume_size, headers)
+    422         headers["Range"] = f"bytes={resume_size}-"
+--> 423     r = requests.get(url, stream=True, proxies=proxies, headers=headers)
+    424     _raise_for_status(r)
+
+~/.local/lib/python3.6/site-packages/requests/api.py in get(url, params, **kwargs)
+     74 
+---> 75     return request('get', url, params=params, **kwargs)
+     76 
+
+~/.local/lib/python3.6/site-packages/requests/api.py in request(method, url, **kwargs)
+     60     with sessions.Session() as session:
+---> 61         return session.request(method=method, url=url, **kwargs)
+     62 
+
+~/.local/lib/python3.6/site-packages/requests/sessions.py in request(self, method, url, params, data, headers, cookies, files, auth, timeout, allow_redirects, proxies, hooks, stream, verify, cert, json)
+    514         )
+--> 515         prep = self.prepare_request(req)
+    516 
+
+~/.local/lib/python3.6/site-packages/requests/sessions.py in prepare_request(self, request)
+    452             cookies=merged_cookies,
+--> 453             hooks=merge_hooks(request.hooks, self.hooks),
+    454         )
+
+~/.local/lib/python3.6/site-packages/requests/models.py in prepare(self, method, url, headers, files, data, params, auth, cookies, hooks, json)
+    317         self.prepare_method(method)
+--> 318         self.prepare_url(url, params)
+    319         self.prepare_headers(headers)
+
+~/.local/lib/python3.6/site-packages/requests/models.py in prepare_url(self, url, params)
+    391 
+--> 392             raise MissingSchema(error)
+    393 
+
+MissingSchema: Invalid URL '/api/resolve-cache/models/google/flan-t5-small/0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab/config.json?%2Fgoogle%2Fflan-t5-small%2Fresolve%2Fmain%2Fconfig.json=&etag=%22360a0073f29a105ced4a366cda27e668b11bb73b%22': No scheme supplied. Perhaps you meant http:///api/resolve-cache/models/google/flan-t5-small/0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab/config.json?%2Fgoogle%2Fflan-t5-small%2Fresolve%2Fmain%2Fconfig.json=&etag=%22360a0073f29a105ced4a366cda27e668b11bb73b%22?
+
+During handling of the above exception, another exception occurred:
+
+OSError                                   Traceback (most recent call last)
+<ipython-input-1-9b9cf9fd6228> in <module>
+      2 model_name = "google/flan-t5-small"
+      3 tokenizer = T5Tokenizer.from_pretrained(model_name)
+----> 4 model = T5ForConditionalGeneration.from_pretrained(model_name).to('cuda')
+
+~/.local/lib/python3.6/site-packages/transformers/modeling_utils.py in from_pretrained(cls, pretrained_model_name_or_path, *model_args, **kwargs)
+   1593                 _from_auto=from_auto_class,
+   1594                 _from_pipeline=from_pipeline,
+-> 1595                 **kwargs,
+   1596             )
+   1597         else:
+
+~/.local/lib/python3.6/site-packages/transformers/configuration_utils.py in from_pretrained(cls, pretrained_model_name_or_path, **kwargs)
+    519         assert unused_kwargs == {"foo": False}
+    520         ```"""
+--> 521         config_dict, kwargs = cls.get_config_dict(pretrained_model_name_or_path, **kwargs)
+    522         if "model_type" in config_dict and hasattr(cls, "model_type") and config_dict["model_type"] != cls.model_type:
+    523             logger.warning(
+
+~/.local/lib/python3.6/site-packages/transformers/configuration_utils.py in get_config_dict(cls, pretrained_model_name_or_path, **kwargs)
+    546         original_kwargs = copy.deepcopy(kwargs)
+    547         # Get config dict associated with the base config file
+--> 548         config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+    549 
+    550         # That config file may point us toward another config file to use.
+
+~/.local/lib/python3.6/site-packages/transformers/configuration_utils.py in _get_config_dict(cls, pretrained_model_name_or_path, **kwargs)
+    628         except ValueError:
+    629             raise EnvironmentError(
+--> 630                 f"We couldn't connect to '{HUGGINGFACE_CO_RESOLVE_ENDPOINT}' to load this model, couldn't find it in the cached "
+    631                 f"files and it looks like {pretrained_model_name_or_path} is not the path to a directory containing a "
+    632                 "{configuration_file} file.\nCheckout your internet connection or see how to run the library in "
+
+OSError: We couldn't connect to 'https://huggingface.co' to load this model, couldn't find it in the cached files and it looks like google/flan-t5-small is not the path to a directory containing a {configuration_file} file.
+Checkout your internet connection or see how to run the library in offline mode at 'https://huggingface.co/docs/transformers/installation#offline-mode'.
